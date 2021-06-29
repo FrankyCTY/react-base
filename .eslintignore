@@ -1,0 +1,13 @@
+**/node_modules/**
+**/dist/**
+**/storybook-static/**
+**/coverage/**
+**/build/**
+**/.git/**
+**/public/**
+
+!.eslintrc.js
+!.babelrc.js
+!jest.config.js
+!config-overrides.js
+!headwind.config.js

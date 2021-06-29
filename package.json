@@ -5,11 +5,12 @@
   "dependencies": {
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
-    "@frankycty/react-auth": "^1.0.0",
+    "@frankycty/react-auth": "^1.1.0",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "customize-cra": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
@@ -26,19 +27,6 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
-  "eslintConfig": {
-    "extends": "react-app",
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -52,7 +40,9 @@
     ]
   },
   "devDependencies": {
+    "@frankycty/eslint-config-react": "^1.0.0",
     "@frankycty/prettier-config": "^1.0.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@soltalabs/react.headwind-cli": "^5.3.0",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",

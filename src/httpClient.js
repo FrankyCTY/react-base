@@ -1,7 +1,7 @@
 import axios from 'axios'
-import reactAuth from '@frankycty/react-auth'
+import auth from 'auth'
 
-const { authCookie } = reactAuth
+const { authCookie } = auth
 
 const getBaseHttpClient = (baseURL, config) =>
   axios.create({
