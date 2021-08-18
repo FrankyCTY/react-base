@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ASYNC_STATUSES } from 'const'
+import { ASYNC_STATUSES } from 'CONSTANTS'
 import { path, assoc, isNotNil } from '@frankycty/rm-extra'
 
 const { PENDING, FULFILLED, REJECTED } = ASYNC_STATUSES

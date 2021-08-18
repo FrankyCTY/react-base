@@ -1,3 +1,3 @@
-import NoteService from './noteService'
+import UserService from './userService'
 
-export const noteService = new NoteService()
+export const userService = new UserService()

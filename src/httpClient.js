@@ -1,7 +1,9 @@
 import axios from 'axios'
 import auth from 'auth'
+import { isNilOrEmpty } from '@frankycty/rm-extra'
+import moment from 'moment'
 
-const { authCookie } = auth
+const { authCookie, authUtils, mapSessionToAuthCookies } = auth
 
 const getBaseHttpClient = (baseURL, config) =>
   axios.create({
@@ -15,11 +17,28 @@ const getBaseHttpClient = (baseURL, config) =>
 const getProtectedHttpClient = (baseURL, config) => {
   const protectedHttpClient = getBaseHttpClient(baseURL, config)
 
-  const accessToken = authCookie.getAccessToken()
-  protectedHttpClient.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+  protectedHttpClient.interceptors.request.use(async function (config) {
+    let accessToken = authCookie.getAccessToken()
+    let idToken = authCookie.getIdToken()
 
-  const idToken = authCookie.getIdToken()
-  protectedHttpClient.defaults.headers.common['id-token'] = idToken
+    const accessTokenExpiryDate = authCookie.getAccessTokenExpiryDate()
+    const accessTokenHasExpired = moment().isAfter(moment.unix(accessTokenExpiryDate))
+
+    if (isNilOrEmpty(accessToken) || accessTokenHasExpired) {
+      const session = await authUtils.getCurrentSession()
+
+      const authCookiesSessions = mapSessionToAuthCookies(session)
+      authCookie.setAuthSessionCookie(authCookiesSessions?.authSession)
+      authCookie.setAuthIdTokenCookie(authCookiesSessions?.idToken)
+
+      accessToken = authCookie.getAccessToken()
+      idToken = authCookie.getIdToken()
+    }
+
+    config.headers.common['Authorization'] = `Bearer ${accessToken}`
+    config.headers.common['id-token'] = idToken
+    return config
+  })
 
   return protectedHttpClient
 }

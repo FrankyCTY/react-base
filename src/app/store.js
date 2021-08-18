@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { noteReducer } from 'modules/note'
+import { userReducer } from 'modules/user'
 import { asyncStateReducer } from 'modules/asyncState'
 
 export const store = configureStore({
-  reducer: { notes: noteReducer, asyncState: asyncStateReducer },
+  reducer: { user: userReducer, asyncState: asyncStateReducer },
 })
